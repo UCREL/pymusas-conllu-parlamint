@@ -59,6 +59,11 @@ with output_file.open('w', encoding='utf-8') as output_fp:
     pre_src = ['#', 'source', '=']
     pre_txt = ['#', 'text', '=']
 
+    # Attempt to fix-up untranslated sources (EN -> EN) with no source texts
+    # In these cases we just use the original 'text' attribute instead
+    if 'source' not in sent.metadata:
+      sent.metadata['source'] = sent.metadata['text']
+
     sent_id.append(sent.metadata['sent_id'])
     source.append(sent.metadata['source'])
     text.append(sent.metadata['text'])
@@ -108,11 +113,18 @@ with output_file.open('w', encoding='utf-8') as output_fp:
       temp_upos.append(token_data['upos'])
       temp_xpos.append(token_data['xpos'])
 
-      for features in miscs:
-        str_misc = ''
-        for keys, values in features.items():   # metadata related to the sentence, i.e., sent_id, source, and text
-          str_misc = str_misc + keys + '=' + values + '|'
-        temp_miscs.append(str_misc[:-1])
+      try:
+        for features in miscs:
+          str_misc = ''
+          for keys, values in features.items():   # metadata related to the sentence, i.e., sent_id, source, and text
+            str_misc = str_misc + keys + '=' + values + '|'
+          temp_miscs.append(str_misc[:-1])
+      except Exception as e:
+        print("Failed to reassemble miscs, list was:")
+        print( features.items() )
+        print( source )
+        print( text )
+        raise e
       
       for features in feats:
         str_feats = ''

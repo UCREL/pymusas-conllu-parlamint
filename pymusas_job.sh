@@ -2,11 +2,9 @@
 
 set +e
 
-# Grab a parent folder and target year from the arg list
 FOLDER="$1"
 year="$2"
 
-# Set our CWD to the parent folder
 cd $FOLDER
 
 echo "`date`: Processing year $year" >> $FOLDER/pymusas_conllu.$year.log 2>&1
@@ -25,7 +23,6 @@ do
     mv output.conllu $file >> $FOLDER/pymusas_conllu.$year.log 2>&1
     # write log
     echo "`date`: Tagged file $file" >> $FOLDER/pymusas_conllu.$year.log 2>&1
-    # Also echo the log here so we see it in the parent process (otherwise we don't get any progress indication!)
     echo "`date`: Tagged file $file"
 done
 # tidy up temporary file
