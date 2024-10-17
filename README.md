@@ -1,9 +1,6 @@
 # pymusas-conllu-parlamint
 This repo contains the wrapper script and Dockerfile for running the PyMUSAS tagging of the CoNLL-U format of the [ParlaMint](https://www.clarin.eu/parlamint) project corpora translated to English
 
-# Download corpora
-The latest versions will be at https://nl.ijs.si/et/tmp/ParlaMint/MT/CoNLL-U-en/ and some parliaments data may be updated
-
 # Format considerations
 Previous discussions with Tomaž and Matyáš about the output format are at https://github.com/clarin-eric/ParlaMint/issues/204 
 
